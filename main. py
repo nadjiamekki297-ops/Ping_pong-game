@@ -1,0 +1,96 @@
+import turtle
+
+wind = turtle.Screen()
+wind.title("ping pong by nadjia")
+wind.bgcolor("black")
+wind.setup(width=800, height=600)
+wind.tracer(0)
+
+madrab1 = turtle.Turtle()
+madrab1.speed(0)
+madrab1.shape("square")
+madrab1.color("blue")
+madrab1.shapesize(stretch_wid=5, stretch_len=1)
+madrab1.penup()
+madrab1.goto(-350, 0)
+
+madrab2 = turtle.Turtle()
+madrab2.speed(0)
+madrab2.shape("square")
+madrab2.color("red")
+madrab2.shapesize(stretch_wid=5, stretch_len=1)
+madrab2.penup()
+madrab2.goto(350, 0)
+
+ball = turtle.Turtle()
+ball.speed(0)
+ball.shape("square")
+ball.color("white")
+ball.penup()
+ball.goto(0, 0)
+ball.dx = 2.5
+ball.dy = 2.5
+
+score1 = 0
+score2 = 0
+score = turtle.Turtle()
+score.speed(0)
+score.color("white")
+score.penup()
+score.hideturtle()
+score.goto(0, 260)
+score.write("player 1: 0  player 2: 0", align="center", font=("courier", 24, "normal"))
+
+def madrab1_up():
+    madrab1.sety(madrab1.ycor() + 20)
+
+def madrab1_down():
+    madrab1.sety(madrab1.ycor() - 20)
+
+def madrab2_up():
+    madrab2.sety(madrab2.ycor() + 20)
+
+def madrab2_down():
+    madrab2.sety(madrab2.ycor() - 20)
+
+wind.listen()
+wind.onkeypress(madrab1_up, "w")
+wind.onkeypress(madrab1_down, "s")
+wind.onkeypress(madrab2_up, "Up")
+wind.onkeypress(madrab2_down, "Down")
+
+while True:
+    wind.update()
+    ball.setx(ball.xcor() + ball.dx)
+    ball.sety(ball.ycor() + ball.dy)
+
+    if ball.ycor() > 290:
+        ball.sety(290)
+        ball.dy *= -1
+    if ball.ycor() < -290:
+        ball.sety(-290)
+        ball.dy *= -1
+
+    if ball.xcor() > 390:
+        ball.goto(0, 0)
+        ball.dx *= -1
+        score1 += 1
+        score.clear()
+        score.write("player 1: {}  player 2: {}".format(score1, score2), align="center", font=("courier", 24, "normal"))
+
+    if ball.xcor() < -390:
+        ball.goto(0, 0)
+        ball.dx *= -1
+        score2 += 1
+        score.clear()
+        score.write("player 1: {}  player 2: {}".format(score1, score2), align="center", font=("courier", 24, "normal"))
+
+    # المضرب الأيمن (أحمر)
+    if 340 < ball.xcor() < 350 and madrab2.ycor() - 50 < ball.ycor() < madrab2.ycor() + 50:
+        ball.setx(340)
+        ball.dx *= -1
+
+    # المضرب الأيسر (أزرق)
+    if -350 < ball.xcor() < -340 and madrab1.ycor() - 50 < ball.ycor() < madrab1.ycor() + 50:
+        ball.setx(-340)
+        ball.dx *= -1
