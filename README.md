@@ -1,5 +1,6 @@
 # Ping_pong-game
 # Ping Pong 🏓
+#pip install pygame
 لعبة بينغ بونغ لاعبين اثنين، مكتوبة بـ Python (turtle).
 
 ## التشغيل
